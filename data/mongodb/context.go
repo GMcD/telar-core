@@ -32,6 +32,8 @@ func NewMongoClient(ctx context.Context, mongoDBHost string, database string) (M
 	err = client.Ping(ctx, nil)
 	if err != nil {
 		log.Fatalf("Failed to ping cluster: %v", err)
+	} else {
+		log.Printf("Connected to DocumentDb database: %s.", database)
 	}
 
 	dbName = &database
