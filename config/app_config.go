@@ -36,6 +36,7 @@ type (
 const (
 	DB_INMEMORY = "inmemory"
 	DB_MONGO    = "mongo"
+	DB_DOCDB    = "docdb"
 	DB_SQLITE   = "sqlite"
 	DB_MYSQL    = "mysql"
 )

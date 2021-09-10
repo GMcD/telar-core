@@ -3,6 +3,7 @@ package mongodb
 import (
 	"context"
 	"fmt"
+	"log"
 
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
@@ -17,11 +18,22 @@ type MongoClient struct {
 var client *mongo.Client
 var dbName *string
 
-// Create a new mogodb client object
+// XXX Create a new DocumentDb client object
+// Added 28-31, and chained the call to .SetTLSConfig(tlsConfig)
+// TODO: base off configuration of DBType = "DocDb"
 func NewMongoClient(ctx context.Context, mongoDBHost string, database string) (MongoDatabase, error) {
 	mongoClient := &MongoClient{Context: ctx}
 	var err error
-	client, err = mongo.Connect(ctx, options.Client().ApplyURI(mongoDBHost))
+	tlsConfig, err := GetCustomTLSConfig(caFilePath)
+	if err != nil {
+		log.Fatalf("Failed getting TLS configuration: %v", err)
+	}
+	client, err = mongo.Connect(ctx, options.Client().ApplyURI(mongoDBHost).SetTLSConfig(tlsConfig))
+	err = client.Ping(ctx, nil)
+	if err != nil {
+		log.Fatalf("Failed to ping cluster: %v", err)
+	}
+
 	dbName = &database
 	return mongoClient, err
 }
