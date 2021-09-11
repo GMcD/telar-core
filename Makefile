@@ -21,13 +21,11 @@ help:		## Show this help.
 	@fgrep -h "##" $(MAKEFILE_LIST) | fgrep -v fgrep | sed -e 's/\\$$//' | sed -e 's/##//'
 
 commit:		## Short hand for Commit to Prod Remote
-	git add .; git commit -m ${ARGUMENT}; git push
-
-minor:		## Bump Patch version
+	git add .; git commit -m ${ARGUMENT}; git push prod main
 	npm version patch
 
 fork:		## Short hand for Commit to Fork Remote
-fork: minor
+fork: 
 	git add . ; git commit -m ${ARGUMENT}; git push fork HEAD:master 
 
 tag:		## Tag a Release
