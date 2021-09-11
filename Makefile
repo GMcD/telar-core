@@ -23,10 +23,15 @@ help:		## Show this help.
 commit:		## Short hand for Commit to Prod Remote
 	git add .; git commit -m ${ARGUMENT}; git push
 
+minor:		## Bump Patch version
+	npm version patch
+
 fork:		## Short hand for Commit to Fork Remote
+fork: minor
 	git add . ; git commit -m ${ARGUMENT}; git push fork HEAD:master 
 
 tag:		## Tag a Release
 tag: fork
-	git tag $${RELEASE_TAG} -am ${ARGUMENT}
+	git merge main
+	git tag $(cat package.json | jq -j '.version') -am ${ARGUMENT}
 	git push fork HEAD:master --tags 
