@@ -4,12 +4,9 @@ import (
 	"log"
 	"runtime/debug"
 	"strings"
-
-	"github.com/icza/bitio"
 )
 
-func pkgversion(pkg string) string {
-	_ = bitio.NewReader
+func PkgVersion(pkg string) string {
 	bi, ok := debug.ReadBuildInfo()
 	if !ok {
 		log.Printf("Failed to read build info for package version.")

@@ -22,7 +22,7 @@ help:		## Show this help.
 
 commit:		## Short hand for Commit to Prod Remote
 	git add .; git commit -m ${ARGUMENT}; git push prod main
-	npm version patch
+	npm --no-git-tag-version version patch
 
 fork:		## Short hand for Commit to Fork Remote
 fork: 
