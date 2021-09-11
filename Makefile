@@ -31,5 +31,5 @@ fork:
 tag:		## Tag a Release
 tag: fork
 	git merge main && \
-	git tag $$(cat package.json | jq -j '.version') -am ${ARGUMENT} && \
+	git tag v$$(cat package.json | jq -j '.version') -am ${ARGUMENT} && \
 	git push fork HEAD:master --tags 
