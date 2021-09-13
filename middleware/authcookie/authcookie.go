@@ -4,7 +4,9 @@ import (
 	"net/http"
 	"strings"
 
+	"github.com/GMcD/cognito-jwt/verify"
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofrs/uuid"
 	"github.com/red-gold/telar-core/pkg/log"
 	"github.com/red-gold/telar-core/pkg/parser"
 	"github.com/red-gold/telar-core/types"
@@ -41,11 +43,23 @@ func New(config Config) fiber.Handler {
 		// Check token validation and set user context in locals
 		if parsedClaim, err := cfg.Authorizer(auth); err == nil && parsedClaim != nil {
 
+			// Get standard Claims
 			userCtx := new(types.UserContext)
-			claim := parsedClaim["claim"]
-			log.Info("Claims : %s", claim)
 			parser.MarshalMap(parsedClaim["claim"], userCtx)
-			userCtx.Username = "finley+social5@fogldn.com"
+
+			// Get Additional Claims
+			claims, err := verify.VerifyJWT(auth)
+			if err != nil {
+				log.Error(err)
+				return cfg.Unauthorized(c)
+			} else {
+				log.Info("Claims : %s", claims)
+			}
+
+			userCtx.UserID, _ = uuid.FromString(claims["cognito:username"].(string))
+			userCtx.Username = claims["email"].(string)
+			userCtx.DisplayName = claims["name"].(string)
+
 			log.Info("UserContext : %s", *userCtx)
 
 			c.Locals(cfg.UserCtxName, *userCtx)
