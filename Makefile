@@ -26,10 +26,10 @@ commit:		## Short hand for Commit to Prod Remote
 fork:		## Short hand for Commit to Fork Remote
 fork: 
 	git add . ; git commit -m ${ARGUMENT}; git push fork HEAD:master 
-	npm --no-git-tag-version version patch
 
 tag:		## Tag a Release
 tag: fork
 	git merge main && \
+	npm --no-git-tag-version version patch && \
 	git tag v$$(cat package.json | jq -j '.version') -am ${ARGUMENT} && \
 	git push fork HEAD:master --tags 
