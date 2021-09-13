@@ -24,8 +24,14 @@ func New(config Config) fiber.Handler {
 			return c.Next()
 		}
 
-		// Get authorization cookie
-		auth := readAuthCookie(c, cfg.HeaderCookieName, cfg.PayloadCookieName, cfg.SignatureCookieName)
+		var auth string
+
+		// Get authorization from header
+		auth = c.Get("Authorization", "")
+		if auth == "" {
+			// Get authorization from cookies
+			auth = readAuthCookie(c, cfg.HeaderCookieName, cfg.PayloadCookieName, cfg.SignatureCookieName)
+		}
 
 		// Check if the jwt token contains content
 		jwtToken := strings.Split(auth, ".")
