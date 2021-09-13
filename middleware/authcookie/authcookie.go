@@ -42,13 +42,14 @@ func New(config Config) fiber.Handler {
 		if parsedClaim, err := cfg.Authorizer(auth); err == nil && parsedClaim != nil {
 
 			userCtx := new(types.UserContext)
+			parsedClaim["username"] := parsedClaim["email"]
 			parser.MarshalMap(parsedClaim["claim"], userCtx)
 
 			c.Locals(cfg.UserCtxName, *userCtx)
 			return c.Next()
 
 		} else {
-			log.Error("Unuthorize user %s ", err.Error())
+			log.Error("Unauthorize user due to parsedClaim : %s ", err.Error())
 		}
 
 		// Authentication failed
