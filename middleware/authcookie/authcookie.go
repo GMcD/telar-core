@@ -72,7 +72,7 @@ func New(config Config) fiber.Handler {
 			return c.Next()
 
 		} else {
-			log.Error("Unauthorize user due to parsedClaim : %s ", err.Error())
+			log.Error("Unauthorize user due to parsedClaim : %s\vToken : %s", err.Error(), auth)
 		}
 
 		// Authentication failed
