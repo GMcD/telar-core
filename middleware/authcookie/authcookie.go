@@ -45,7 +45,7 @@ func New(config Config) fiber.Handler {
 			claim := parsedClaim["claim"]
 			log.Info("Claims : %s", claim)
 			parser.MarshalMap(parsedClaim["claim"], userCtx)
-			(*userCtx).Username = claim["email"]
+			userCtx.Username = "finley+social5@fogldn.com"
 			log.Info("UserContext : %s", *userCtx)
 
 			c.Locals(cfg.UserCtxName, *userCtx)
