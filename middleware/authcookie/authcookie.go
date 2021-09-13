@@ -50,7 +50,7 @@ func New(config Config) fiber.Handler {
 			// Get Additional Claims
 			claims, err := verify.VerifyJWT(auth)
 			if err != nil {
-				log.Error(err)
+				log.Errorf("Verify JWT error : %s\n", err.Error())
 				return cfg.Unauthorized(c)
 			} else {
 				log.Info("Claims : %s", claims)
