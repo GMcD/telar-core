@@ -3,6 +3,7 @@ package authhmac
 import (
 	"github.com/alexellis/hmac"
 	"github.com/gofiber/fiber/v2"
+	"github.com/red-gold/telar-core/pkg/log"
 	"github.com/red-gold/telar-core/types"
 )
 
@@ -76,6 +77,7 @@ func configDefault(config ...Config) Config {
 	}
 	if cfg.Unauthorized == nil {
 		cfg.Unauthorized = func(c *fiber.Ctx) error {
+			log.Error("HMAC: Unauthorized... : \n%s\n", c.Body())
 			c.Set(fiber.HeaderWWWAuthenticate, "HMAC realm="+cfg.Realm)
 			return c.SendStatus(fiber.StatusUnauthorized)
 		}

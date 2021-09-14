@@ -18,9 +18,11 @@ func New(config Config) fiber.Handler {
 	return func(c *fiber.Ctx) error {
 		// Don't execute middleware if Next returns true
 		if cfg.Next != nil && cfg.Next(c) {
+			log.Info("Skipping HMAC check...")
 			return c.Next()
 		}
 
+		log.Info("Performing HMAC check...")
 		// Get authorization header
 		auth := c.Get(types.HeaderHMACAuthenticate)
 
