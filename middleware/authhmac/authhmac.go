@@ -32,6 +32,8 @@ func New(config Config) fiber.Handler {
 			return cfg.Unauthorized(c)
 		}
 
+		// Checking Digest of Body
+		// log.Info("Performing HMAC check: \n%s\n", c.Body())
 		if err := cfg.Authorizer(c.Body(), auth); err == nil {
 			if c.Get("uid") == "" {
 				log.Warn("[HMAC] User id is not provided. In this case user context will be set empty!")
