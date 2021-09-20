@@ -28,7 +28,7 @@ fork:
 	git add . ; git commit -m ${ARGUMENT}; git push fork HEAD:master 
 
 tag:		## Tag a Release
-tag:		##   * Checkout Fork, update, push, tag, and release. Checkout Main.
+tag:		##   * Checkout fork/gmcd, update, push, tag, and release. Checkout prod/main.
 tag: fork
 	git checkout gmcd && \
 	git merge main && \
