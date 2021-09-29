@@ -187,4 +187,35 @@ func LoadConfigFromEnvironment() {
 		config.AppConfig.DBType = &dbType
 		log.Info("Database type information loaded from env.")
 	}
+
+	cognitoUserPool, ok := os.LookupEnv("cognito_user_pool")
+	if ok {
+		config.AppConfig.CognitoUserPool = &cognitoUserPool
+		log.Info("Cognito User Pool %s loaded from env.", cognitoUserPool)
+	}
+
+	contentSecurityPolicy, ok := os.LookupEnv("content_security_policy")
+	if ok {
+		config.AppConfig.ContentSecurityPolicy = &contentSecurityPolicy
+		log.Info("Content Security Policy '%s' loaded from env.", contentSecurityPolicy)
+	}
+
+	contentTypeOptions, ok := os.LookupEnv("content_header_options")
+	if ok {
+		config.AppConfig.ContentTypeOptions = &contentTypeOptions
+		log.Info("Content Header Options '%s' loaded from env.", contentTypeOptions)
+	}
+
+	referrerPolicy, ok := os.LookupEnv("referrer_policy")
+	if ok {
+		config.AppConfig.ReferrerPolicy = &referrerPolicy
+		log.Info("Referrer Policy '%s' loaded from env.", referrerPolicy)
+	}
+
+	awsRegion, ok := os.LookupEnv("aws_region")
+	if ok {
+		config.AppConfig.AwsRegion = &awsRegion
+		log.Info("AWS Region '%s' loaded from env.", awsRegion)
+	}
+
 }

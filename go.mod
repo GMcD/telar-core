@@ -3,6 +3,8 @@ module github.com/red-gold/telar-core
 go 1.16
 
 require (
+	github.com/GMcD/cognito-jwt v0.0.2
+	github.com/MicahParks/keyfunc v0.8.2
 	github.com/alexellis/hmac v0.0.0-20180624211220-5c52ab81c0de
 	github.com/andybalholm/brotli v1.0.3 // indirect
 	github.com/davecgh/go-spew v1.1.1
