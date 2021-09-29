@@ -4,12 +4,12 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/GMcD/cognito-jwt/verify"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofrs/uuid"
 	"github.com/red-gold/telar-core/pkg/log"
 	"github.com/red-gold/telar-core/pkg/parser"
 	"github.com/red-gold/telar-core/types"
+	"github.com/red-gold/telar-core/utils"
 )
 
 // New creates a new middleware handler
@@ -54,7 +54,7 @@ func New(config Config) fiber.Handler {
 			parser.MarshalMap(parsedClaim["claim"], userCtx)
 
 			// Get Additional Claims
-			claims, err := verify.VerifyJWT(auth)
+			claims, err := utils.VerifyJWT(auth)
 			if err != nil {
 				log.Error("Verify JWT error : %s\n", err.Error())
 				return cfg.Unauthorized(c)
