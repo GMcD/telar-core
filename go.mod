@@ -7,7 +7,6 @@ require (
 	github.com/alexellis/hmac v0.0.0-20180624211220-5c52ab81c0de
 	github.com/andybalholm/brotli v1.0.3 // indirect
 	github.com/davecgh/go-spew v1.1.1
-	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/fatih/color v1.10.0
 	github.com/gofiber/fiber/v2 v2.10.0
 	github.com/gofrs/uuid v4.0.0+incompatible
