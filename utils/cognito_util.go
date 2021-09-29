@@ -7,20 +7,10 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/red-gold/telar-core/config"
-
-	// "github.com/golang-jwt/jwt/v4"
-	"github.com/dgrijalva/jwt-go"
-
 	"github.com/MicahParks/keyfunc"
+	"github.com/golang-jwt/jwt/v4"
+	"github.com/red-gold/telar-core/config"
 )
-
-func getEnv(key, fallback string) string {
-	if value, ok := os.LookupEnv(key); ok {
-		return value
-	}
-	return fallback
-}
 
 func getEnvInt(key string, fallback time.Duration) time.Duration {
 	if value, ok := os.LookupEnv(key); ok {
@@ -87,9 +77,12 @@ func VerifyJWT(jwtB64 string) (jwt.MapClaims, error) {
 		return nil, fmt.Errorf("Failed to create JWKs from resource at %s.\nError:%s\n", jwksURL, err.Error())
 	}
 
-	// Parse the JWT, and extract the Claims
-	token, err := jwt.Parse(jwtB64, jwks.KeyFunc)
-	claims := token.Claims.(jwt.MapClaims)
+	// Parse the JWT, and extract the Claims, if we have a token (which may have expired?)
+	var claims jwt.MapClaims
+	token, err := jwt.Parse(jwtB64, jwks.Keyfunc)
+	if token != nil {
+		claims = token.Claims.(jwt.MapClaims)
+	}
 
 	if err != nil {
 		PrintClaim(claims)
