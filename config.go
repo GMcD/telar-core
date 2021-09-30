@@ -200,7 +200,7 @@ func LoadConfigFromEnvironment() {
 		log.Info("Content Security Policy '%s' loaded from env.", contentSecurityPolicy)
 	}
 
-	contentTypeOptions, ok := os.LookupEnv("content_header_options")
+	contentTypeOptions, ok := os.LookupEnv("content_type_options")
 	if ok {
 		config.AppConfig.ContentTypeOptions = &contentTypeOptions
 		log.Info("Content Header Options '%s' loaded from env.", contentTypeOptions)

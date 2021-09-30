@@ -8,7 +8,7 @@ import (
 	"time"
 
 	"github.com/MicahParks/keyfunc"
-	"github.com/golang-jwt/jwt/v4"
+	jwt "github.com/golang-jwt/jwt/v4"
 	"github.com/red-gold/telar-core/config"
 )
 
