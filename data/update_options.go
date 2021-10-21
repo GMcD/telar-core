@@ -24,7 +24,7 @@ func (uo *UpdateOptions) SetBypassDocumentValidation(b bool) *UpdateOptions {
 	return uo
 }
 
-// SetUpsert allows the creation of a new document if not document matches the query
+// SetUpsert allows the creation of a new document if no document matches the query
 func (uo *UpdateOptions) SetUpsert(b bool) *UpdateOptions {
 	uo.Upsert = &b
 	return uo

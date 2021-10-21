@@ -12,6 +12,10 @@ type UpdateOperator struct {
 	Set interface{} `json:"$set" bson:"$set"`
 }
 
+type AddToSetOperator struct {
+	AddToSet interface{} `json:"$addToSet" bson:"$addToSet"`
+}
+
 type IncrementOperator struct {
 	Inc interface{} `json:"$inc" bson:"$inc"`
 }
