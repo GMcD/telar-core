@@ -311,7 +311,7 @@ func (m *DataRepositoryMongo) Update(collectionName string, filter interface{}, 
 			result <- d.RepositoryResult{Error: err}
 		}
 
-		// Returnt Result
+		// Return Result
 		result <- d.RepositoryResult{Result: updateResult.ModifiedCount}
 		close(result)
 	}()
