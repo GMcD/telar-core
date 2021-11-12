@@ -13,7 +13,7 @@ func AddPolicies(req *http.Request) http.Request {
 		types.HeaderContentSecurityPolicy: *config.AppConfig.ContentSecurityPolicy,
 		types.HeaderReferrerPolicy:        *config.AppConfig.ReferrerPolicy,
 		types.HeaderContentTypeOptions:    *config.AppConfig.ContentTypeOptions,
-		types.HeaderXSSProtection:         "X-XSS-Protection: 1; mode=block",
+		types.HeaderXSSProtection:         "1; mode=block",
 		types.HeaderXFrameOption:          "SAMEORIGIN",
 		types.HeaderHSTS:                  "max-age=31536000; includeSubDomains",
 	}
