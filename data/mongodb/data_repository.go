@@ -159,7 +159,7 @@ func (m *DataRepositoryMongo) Aggregate(collectionName string, pipeline interfac
 		}
 
 		// Execute query
-		cur, err = collection.Aggregate(ctx, pipeline)
+		cur, err = collection.Aggregate(ctx, pipeline, options.Aggregate().SetAllowDiskUse(true))
 		if err != nil {
 			log.Error("Find cursor err (%s)! \n", err.Error())
 			result <- &DataResult{err: err}
